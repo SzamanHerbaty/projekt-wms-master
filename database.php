@@ -36,7 +36,7 @@ function addPost(){
     $values=['title','categoryId','content'];
     if(!isPostValid($values)) return;
     $categoryId = $_POST['categoryId'];
-    $authorId = $_SESSION;
+    $authorId = $_SESSION['adminId'];
     $title = $_POST['title'];
     $content = $_POST['content'];
     $connection = getConnection();
@@ -72,11 +72,33 @@ function login(){
     $email = $_POST['email'];
     $password = $_POST['password'];
     $connection = getConnection();
-    $sql = "select * from admin where email='$email'";
+    $sql = "select * from admins where email='$email'";
     $result = $connection->query($sql);
     $rows = $result->fetch_all(MYSQLI_ASSOC);
     $connection->close();
     if(count($rows) == 0) return;
-    if(!password_verify($password.$rows[0]['password'])) return;
+    if(!password_verify($password,$rows[0]['password'])) return;
     $_SESSION['adminId'] = $rows[0]['id'];
+}
+function deleteMessage(){
+    $id = $_GET['id'];
+    $connection = getConnection();
+    $sql = "delete from messages where id = $id";
+    $connection->query($sql);
+    $connection->close();
+} 
+function getAllMessages(){
+    $connection = getConnection();
+    $sql = 'select * from messages';
+    $result = $connection->query($sql);
+    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    $connection->close();
+    return $rows;
+}
+function deletePost(){
+    $id = $_GET['id'];
+    $connection = getConnection();
+    $sql = "delete from posts where id='$id'";
+    $connection->query($sql);
+    $connection->close();
 }

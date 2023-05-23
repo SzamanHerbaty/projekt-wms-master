@@ -1,6 +1,6 @@
 <?php
 include('config.php');
-function session_start();
+session_start();
 function printNavbar() {
     global $nrSpotkania, $title;
     ?>
@@ -23,6 +23,8 @@ function printNavbar() {
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item"><a class="nav-link" href="admin-posts.php">Zarządzanie - Posty</a></li>
                 <li class="nav-item"><a class="nav-link" href="logout.php">Wyloguj</a></li>
+                <li class="nav-item"><a class="nav-link" href="admin-messages.php">Zarządzanie - Wiadomości</a></li>
+                
             </ul>
             <?php
         }
@@ -75,6 +77,6 @@ function isAdmin(){
 }
 function checkIfAdmin(){
     if(isAdmin()) return;
-    header('Location: login.php')
+    header('Location: login.php');
     exit();
 }

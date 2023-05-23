@@ -1,7 +1,6 @@
 <?php
 include_once('functions.php');
 include_once('database.php');
-checkIfAdmin();
 ?>
 <!DOCTYPE html>
 <html lang="pl">
@@ -18,32 +17,31 @@ checkIfAdmin();
     printNavbar();
     ?>
     <main class="container mt-5">
-        <h2>Posty</h2>
-        <table class="table table-striped"> 
+        <h2>Wiadomości</h2>
+        <table class="table table-striped table-responsive"> 
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Tytuł</th>
-                    <th>Kategoria</th>
-                    <th colspan="2"></th>
+                    <th>Email</th>
+                    <th>Imie i Nazwisko</th>
+                    <th>Treść</th>
+                    <th>Data</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td colspan="5">
-                        <a href="admin-add-post.php" class="btn btn-outline-primary col-12">Nowy post</a>
-                    </td>
-                </tr>
+            
                 <?php
-                $posts = getAllPosts();
-                foreach($posts as $a){
+                $messages = getAllMessages();
+                foreach($messages as $a){
                     ?>
                     <tr>
                         <td><?=$a['id']?></td>
-                        <td><?=$a['title']?></td>
-                        <td><?=$a['categoryName']?></td>
-                        <td><a href="admin-post.php?id=<?=$a['id']?>"class="btn btn-outline-info"><i class="bi bi-link"></i></a></td>
-                        <td><a href="admin-delete-post.php?id=<?=$a['id']?>"class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
+                        <td><?=$a['email']?></td>
+                        <td><?=$a['firstName']?></td>
+                        <td><?=$a['content']?></td>
+                        <td><?=$a['createdAt']?></td>
+                        <td><a href="admin-delete-messages.php?id=<?=$a['id']?>"class="btn btn-outline-danger"><i class="bi bi-trash"></i></a></td>
                     </tr>
                     <?php
                 }
